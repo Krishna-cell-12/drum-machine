@@ -299,11 +299,14 @@ class ExportMetadata:
 
     def set_cover_art(self, file_path):
         """Set the cover art path and update UI"""
+        if not file_path:
+            self.remove_cover_art()
+            return
         self.cover_art_path = file_path
-        if file_path:
-            filename = os.path.basename(file_path)
-            display_name = filename[:20] + "…" if len(filename) > 20 else filename
-            self.cover_button.set_label(display_name)
+        filename = os.path.basename(file_path)
+        display_name = filename[:20] + "…" if len(filename) > 20 else filename
+        self.cover_button.set_label(display_name)
+        self.cover_remove_button.set_visible(True)
 
     def set_sensitivity(self, sensitive: bool):
         """Enable or disable metadata fields"""
